@@ -50,9 +50,7 @@ pipeline {
                     echo "All containers from image $imageName have been stopped and removed."
                     """
 
-#                    sh "docker stop \$(docker ps -q --filter 'ancestor=nodemain:v1.0')"
-#                    sh "docker rm \$(docker ps -q --filter 'ancestor=nodemain:v1.0')"
-#                    docker.image('nodemain:v1.0').run('-d --expose 3000 -p 3000:3000')
+                    docker.image('nodemain:v1.0').run('-d --expose 3000 -p 3000:3000')
                 }
             }
         }
