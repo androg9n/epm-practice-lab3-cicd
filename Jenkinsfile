@@ -28,7 +28,7 @@ pipeline {
                     def imageName = "nodemain:v1.0"
                     sh """
                     #!/bin/bash
-                    CONTAINER_IDS=\$(docker ps --format '{{.ID}} {{.Ports}}' | awk '/0.0.0.0:3000/ {print $1}')
+                    CONTAINER_IDS=\$(docker ps --format '{{.ID}} {{.Ports}}' | awk '/0.0.0.0:3000/ {print \$1}')
                     if [ -z "\$CONTAINER_IDS" ]; then
                         echo "No running containers found for image: $imageName"
                         exit 0
