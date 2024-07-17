@@ -28,7 +28,7 @@ pipeline {
                     def PORT_NUMBER = "3000"
                     sh """
                     #!/bin/bash
-                    CONTAINER_IDS=\$(docker ps --format '{{.ID}} {{.Ports}}' | awk '/0.0.0.0:'\$PORT_NUMBER'/ {print \$1}')
+                    CONTAINER_IDS=\$(docker ps --format '{{.ID}} {{.Ports}}' | awk '/0.0.0.0:3000'/ {print \$1}')
                     if [ -z "\$CONTAINER_IDS" ]; then
                         echo "No running containers found for port: \$PORT_NUMBER"
                         exit 0
