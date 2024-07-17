@@ -15,10 +15,20 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
                 script {
                     docker.build("nodemain:v1.0", ".")
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'docker stop $(docker ps -q --filter "ancestor=nodemain:v1.0")'
+                    sh 'docker rm $(docker ps -q --filter "ancestor=nodemain:v1.0")'
+                    docker.image('nodemain:v1.0').withRun('-d --expose 3000 -p 3000:3000') {
+                    }
                 }
             }
         }
