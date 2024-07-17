@@ -15,5 +15,12 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("nodedev:v1.0", ".")
+                }
+            }
+        }
     }
 }
