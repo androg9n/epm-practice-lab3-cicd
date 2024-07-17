@@ -25,10 +25,19 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script {
+                    def imageName = "nodemain:v1.0"
                     sh """
-                    docker stop \$(docker ps -q --filter 'ancestor=nodemain:v1.0') 2>null || echo 'No running containers found for image nodemain:v1.0'
-                    docker rm \$(docker ps -aq --filter 'ancestor=nodemain:v1.0') 2>null || echo 'No stopped containers found for image nodemain:v1.0'
-                    docker.image('nodemain:v1.0').run('--expose 3000 -p 3000:3000')
+                    #!/bin/bash
+                    CONTAINER_IDS=\$(docker ps -q --filter "ancestor=$imageName")
+                    if [ -z "\$CONTAINER_IDS" ]; then
+                        echo "No running containers found for image: $imageName"
+                        exit 0
+                    fi
+                    echo "Stopping containers..."
+                    docker stop \$CONTAINER_IDS
+                    echo "Removing containers..."
+                    docker rm \$CONTAINER_IDS
+                    echo "All containers from image $imageName have been stopped and removed."
                     """
                 }
             }
