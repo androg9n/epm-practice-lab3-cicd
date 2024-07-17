@@ -15,14 +15,14 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage('Build Image') {
             steps {
                 script {
                     docker.build("nodemain:v1.0", ".")
                 }
             }
         }
-        stage('Deploy') {
+        stage('Deploy Image') {
             steps {
                 script {
                     sh 'docker stop $(docker ps -q --filter "ancestor=nodemain:v1.0")'
