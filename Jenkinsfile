@@ -4,7 +4,14 @@ pipeline {
         stage('Build') {
             steps {
                 nodejs('nodejs22') {
-                    sh 'npm config ls'
+                    sh 'npm install'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                nodejs('nodejs22') {
+                    sh 'npm test'
                 }
             }
         }
