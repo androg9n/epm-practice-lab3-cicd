@@ -25,6 +25,7 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script {
+
                     sh """
                     #!/bin/bash
                     PORT_NUMBER=3000
