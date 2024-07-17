@@ -39,6 +39,7 @@ pipeline {
                     docker rm \$CONTAINER_IDS
                     echo "All containers from image $imageName have been stopped and removed."
                     """
+                    docker.image('nodemain:v1.0').run('-d --expose 3000 -p 3000:3000')
                 }
             }
         }
